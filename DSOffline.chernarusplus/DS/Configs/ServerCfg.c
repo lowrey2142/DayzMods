@@ -16,8 +16,11 @@
 	
 	This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 */
+//#include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Configs\\CommunityCfg.c"
+#include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Community\\loadouts.c"
+
 class CustomMission: MissionServer
-{	
+{		
 	void CustomMission()
 	{
 		Print("VANILLA PLUS PLUS IS ALIVE!!");
@@ -35,13 +38,7 @@ class CustomMission: MissionServer
 		ce.InitOffline();
 	}
 
-	void SetRandomHealth(EntityAI itemEnt)
-	{
-		int rndHlt = Math.RandomInt(40,100);
-		itemEnt.SetHealth("","",rndHlt);
-	}
-
-	override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
+		override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
 	{
 		if (GetHive())
 		{
@@ -55,6 +52,24 @@ class CustomMission: MissionServer
 			yaw = 0;
 			queueTime = 3;
 		}
+		
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.PlayerCounter, 110000, true);  //Default 120000 2 mins Looped
+	}
+	
+	void GlobalMessage(int Channel, string Message)
+	{
+		if (Message != "")
+		{
+			GetGame().ChatPlayer(Channel,Message);
+		}
+	}
+	
+	void PlayerCounter()
+	{
+		array<Man> players = new array<Man>;
+	    GetGame().GetPlayers( players );
+	    int numbOfplayers = players.Count();
+	    GlobalMessage(1,"Online Players: "+ numbOfplayers.ToString());
 	}
 
 	override void TickScheduler(float timeslice)
@@ -73,7 +88,6 @@ class CustomMission: MissionServer
 
 			currentPlayer.GetStaminaHandler().SyncStamina(1000,1000);
             currentPlayer.GetStatStamina().Set(currentPlayer.GetStaminaHandler().GetStaminaCap());
-			
 		}
 	}
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
@@ -86,26 +100,10 @@ class CustomMission: MissionServer
 		
 		return m_player;
 	}
-	
+		
 	override void StartingEquipSetup(PlayerBase player, bool clothesChosen)
 	{
-/*
-		player.RemoveAllItems();
-
-		EntityAI item = player.GetInventory().CreateInInventory(topsArray.GetRandomElement());
-		EntityAI item2 = player.GetInventory().CreateInInventory(pantsArray.GetRandomElement());
-		EntityAI item3 = player.GetInventory().CreateInInventory(shoesArray.GetRandomElement());
-*/
-		EntityAI itemEnt;
-		ItemBase itemBs;
 		
-		itemEnt = player.GetInventory().CreateInInventory("Rag");
-		itemBs = ItemBase.Cast(itemEnt);
-		itemBs.SetQuantity(4);
-		SetRandomHealth(itemEnt);
-
-		itemEnt = player.GetInventory().CreateInInventory("RoadFlare");
-		itemBs = ItemBase.Cast(itemEnt);
+		DefaultPlayerSetup pobj = new DefaultPlayerSetup(player);
 	}
-	
 }	
