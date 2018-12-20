@@ -45,10 +45,8 @@ class DSCommunity : MissionServer
 
 	override void OnInit()
 	{
-		/*Hive ce = CreateHive();
-		if ( ce )
-		ce.InitOffline();
-		*/
+		super.OnInit();
+		
 		Print("Loading DSCommunity Mods...");
 		
 		m_CommAdminList    = new map<string, string>; //UID, name
@@ -149,6 +147,7 @@ class DSCommunity : MissionServer
             currentPlayer.GetStatStamina().Set(currentPlayer.GetStaminaHandler().GetStaminaCap());
 		}
 	}
+	
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
 	{
 		Entity playerEnt;

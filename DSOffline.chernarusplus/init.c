@@ -6,25 +6,35 @@ Mission CreateCustomMission(string path)
 }
 
 void main()
-{	
+{
+	//INIT WEATHER BEFORE ECONOMY INIT------------------------
 	Weather weather = g_Game.GetWeather();
 
-	weather.GetOvercast().SetLimits( 0.0 , 1.0 );
-	weather.GetRain().SetLimits( 0.0 , 1.0 );
-	weather.GetFog().SetLimits( 0.0 , 0.25 );
+    weather.MissionWeather(false);    // false = use weather controller from Weather.c
 
-	weather.GetOvercast().SetForecastChangeLimits( 0.0, 0.2 );
-	weather.GetRain().SetForecastChangeLimits( 0.0, 0.1 );
-	weather.GetFog().SetForecastChangeLimits( 0.15, 0.45 );
+    weather.GetOvercast().Set( Math.RandomFloatInclusive(0.4, 0.6), 1, 0);
+    weather.GetRain().Set( 0, 0, 1);
+    weather.GetFog().Set( Math.RandomFloatInclusive(0.05, 0.1), 1, 0);
 
-	weather.GetOvercast().SetForecastTimeLimits( 1800 , 1800 );
-	weather.GetRain().SetForecastTimeLimits( 600 , 600 );
-	weather.GetFog().SetForecastTimeLimits( 1800 , 1800 );
+	//INIT ECONOMY--------------------------------------
+	Hive ce = CreateHive();
+	if ( ce )
+		ce.InitOffline();
 
-	weather.GetOvercast().Set( Math.RandomFloatInclusive(0.0, 0.3), 0, 0);
-	weather.GetRain().Set( Math.RandomFloatInclusive(0.0, 0.2), 0, 0);
-	weather.GetFog().Set( Math.RandomFloatInclusive(0.0, 0.1), 0, 0);
-	
-	weather.SetWindMaximumSpeed(15);
-	weather.SetWindFunctionParams(0.1, 0.3, 50);
+	//DATE RESET AFTER ECONOMY INIT-------------------------
+	int year;
+	int month;
+	int day;
+	int hour;
+	int minute;
+
+	GetGame().GetWorld().GetDate(year, month, day, hour, minute);
+
+    if (((month <= 9) && (day < 20)) || ((month >= 10) && (day > 20)))
+    {
+        month = 9;
+        day = 20;
+		
+		GetGame().GetWorld().SetDate(year, month, day, hour, minute);
+	}
 }
