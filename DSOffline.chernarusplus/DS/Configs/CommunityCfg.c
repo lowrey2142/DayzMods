@@ -1,5 +1,5 @@
 
-class Community extends CustomMission
+class Community
 {
 	protected ref map<string, string> m_CommAdminList;
 	protected ref map<string, string> m_CommVIPList;
@@ -12,9 +12,20 @@ class Community extends CustomMission
 	
 	protected string m_MemberListPath = "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Community\\";
 	
-	override void Init()
+	void Community( DSCommunity missionServer )
 	{
-		Print("Community:: Init():: Loading Community Mods...");
+		Print("DSCommunity:: Init():: ");
+	}
+	
+	void ~Community()
+	{
+		
+	}
+	
+	override void OnInit()
+	
+	{
+		Print("Loading DSCommunity Mods...");
 		
 		m_CommAdminList    = new map<string, string>; //UID, name
 		m_CommVIPList    = new map<string, string>; //UID, name
@@ -60,13 +71,4 @@ class Community extends CustomMission
 		}
 	}
 	
-	void Community( CustomMission missionServer )
-	{
-
-	}
-	
-	void ~Community()
-	{
-		
-	}
 }

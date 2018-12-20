@@ -16,26 +16,84 @@
 	
 	This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 */
-//#include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Configs\\CommunityCfg.c"
+
 #include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Community\\loadouts.c"
 
-class CustomMission: MissionServer
+class DSCommunity : MissionServer
 {		
-	void CustomMission()
+	
+	protected ref map<string, string> m_CommAdminList;
+	protected ref map<string, string> m_CommVIPList;
+	protected ref map<string, string> m_CommMemberList;
+	
+	protected PlayerBase Admin;
+	protected PlayerIdentity identityT;
+	protected string PlayerUID;
+	protected string GUID;
+	
+	protected string m_MemberListPath = "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Community\\";
+		
+	void DSCommunity()
 	{
 		Print("VANILLA PLUS PLUS IS ALIVE!!");
 	}
 	
-	void ~CustomMission()
+	void ~DSCommunity()
 	{
 		
 	}
 
 	override void OnInit()
 	{
-		Hive ce = CreateHive();
+		/*Hive ce = CreateHive();
 		if ( ce )
 		ce.InitOffline();
+		*/
+		Print("Loading DSCommunity Mods...");
+		
+		m_CommAdminList    = new map<string, string>; //UID, name
+		m_CommVIPList    = new map<string, string>; //UID, name
+		m_CommMemberList    = new map<string, string>; //UID, name
+
+		//-----Add Admins from txt-----
+		FileHandle CommAdminUIDSFile = OpenFile(m_MemberListPath + "CommAdmins.txt",FileMode.READ);
+		if (CommAdminUIDSFile != 0)
+		{
+			string adminline_content = "";
+			while ( FGets(CommAdminUIDSFile,adminline_content) > 0 )
+			{
+				m_CommAdminList.Insert(adminline_content,"null"); //UID , NAME
+				Print("Adding Admins: "+ adminline_content + " To the Community Admin List!");
+			}
+			CloseFile(CommAdminUIDSFile);
+		}
+
+		//-----Add VIPs from txt-----
+		FileHandle CommVIPUIDSFile = OpenFile(m_MemberListPath + "CommVIPs.txt",FileMode.READ);
+		if (CommVIPUIDSFile != 0)
+		{
+			string VIPline_content = "";
+			while ( FGets(CommVIPUIDSFile,VIPline_content) > 0 )
+			{
+				m_CommVIPList.Insert(VIPline_content,"null"); //UID , NAME
+				Print("Adding VIPs: "+ VIPline_content + " To the Community VIP List!");
+			}
+			CloseFile(CommVIPUIDSFile);
+		}
+
+		//-----Add Members from txt-----
+		FileHandle CommMemberUIDSFile = OpenFile(m_MemberListPath + "CommMembers.txt",FileMode.READ);
+		if (CommMemberUIDSFile != 0)
+		{
+			string Memline_content = "";
+			while ( FGets(CommMemberUIDSFile,Memline_content) > 0 )
+			{
+				m_CommMemberList.Insert(Memline_content,"null"); //UID , NAME
+				Print("Adding Members: "+ Memline_content + " To the Community Member List!");
+			}
+			CloseFile(CommMemberUIDSFile);
+		}
+		
 	}
 
 		override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
@@ -54,6 +112,7 @@ class CustomMission: MissionServer
 		}
 		
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.PlayerCounter, 110000, true);  //Default 120000 2 mins Looped
+		
 	}
 	
 	void GlobalMessage(int Channel, string Message)
@@ -104,6 +163,36 @@ class CustomMission: MissionServer
 	override void StartingEquipSetup(PlayerBase player, bool clothesChosen)
 	{
 		
-		DefaultPlayerSetup pobj = new DefaultPlayerSetup(player);
+		//Geting plaer ID
+		PlayerUID = player.GetIdentity().GetPlainId();
+		
+		
+		//Community Admin Starting Equip
+		if (m_CommAdminList.Contains( PlayerUID ))
+		{
+			Print("Player: "+ PlayerUID + " is a Community admin, granting admin Starting Equip.");
+			AdminPlayerSetup adminobj = new AdminPlayerSetup(player);
+		}
+		
+		//Community VIP Starting Equip
+		else if (m_CommVIPList.Contains( PlayerUID ))
+		{
+			Print("Player: "+ PlayerUID + " is a Community VIP, granting VIP Starting Equip.");
+			VIPPlayerSetup vipobj = new VIPPlayerSetup(player);
+		}
+		
+		//Community Member Starting Equip
+		else if (m_CommMemberList.Contains( PlayerUID ))
+		{
+			Print("Player: "+ PlayerUID + " is a Community member, granting member Starting Equip.");
+			MemberPlayerSetup memberobj = new MemberPlayerSetup(player);
+		}
+		
+		//Default player Starting Equip
+		else 
+		{
+			DefaultPlayerSetup defaultobj = new DefaultPlayerSetup(player);
+		}
+		
 	}
 }	

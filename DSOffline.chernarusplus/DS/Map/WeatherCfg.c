@@ -1,12 +1,17 @@
-#include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Configs\\ServerCfg.c"
+/*
+	DayZ SA CCCP Mod
+	
+	FileName: WeatherCfg.c
+	
+	Usage:
+	FNR:Description
 
-Mission CreateCustomMission(string path)
-{
-	return new DSCommunity();
-}
+	Authors: DayZ SA CCCP Mod Team and Community Contributors(see credits.md)
+	FNR:ModTeamInfo
+	
+	This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+*/
 
-void main()
-{	
 	Weather weather = g_Game.GetWeather();
 
 	weather.GetOvercast().SetLimits( 0.0 , 1.0 );
@@ -27,4 +32,3 @@ void main()
 	
 	weather.SetWindMaximumSpeed(15);
 	weather.SetWindFunctionParams(0.1, 0.3, 50);
-}
