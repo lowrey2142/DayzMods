@@ -1,7 +1,7 @@
 /*
 	DayZ SA Survival Mod
 	
-	FileName: DSPreInit.c
+	FileName: ServerCfg.c
 	
 	Usage:
 	Main Mod Configuration.
@@ -12,7 +12,7 @@
 		#include function
 
 	Authors: DayZ SA Dayz Survival Team(see credits.md)
-	FNR:ModTeamInfo
+	
 	
 	This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 */
@@ -92,6 +92,19 @@ class DSCommunity : MissionServer
 			CloseFile(CommMemberUIDSFile);
 		}
 		
+		//-----Setup Server Messaging system-----
+		Print("[DS]: Setting up msg system...");
+		
+	
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(NumPlayersOnServer, 120 * 1000, true);  // 60 seconds
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(MainServerMessages, 1200 * 1000, true);  // 30 Min = 1800
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(rMessages1, 9900 * 1000, true);  // 30 Min = 1800
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(rMessages2, 10200 * 1000, true);  // 30 Min = 1800
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(rMessages3, 10500 * 1000, true);  // 30 Min = 1800
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(rMessages4, 10740 * 1000, true);  // 30 Min = 1800
+		
+		Print("[DS]: msg setup completed...");
+		//-----End Setup Server Messaging system-----
 	}
 
 		override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
@@ -109,8 +122,6 @@ class DSCommunity : MissionServer
 			queueTime = 3;
 		}
 		
-		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.PlayerCounter, 110000, true);  //Default 120000 2 mins Looped
-		
 	}
 	
 	void GlobalMessage(int Channel, string Message)
@@ -121,14 +132,6 @@ class DSCommunity : MissionServer
 		}
 	}
 	
-	void PlayerCounter()
-	{
-		array<Man> players = new array<Man>;
-	    GetGame().GetPlayers( players );
-	    int numbOfplayers = players.Count();
-	    GlobalMessage(1,"Online Players: "+ numbOfplayers.ToString());
-	}
-
 	override void TickScheduler(float timeslice)
 	{
 		GetGame().GetWorld().GetPlayerList(m_Players);

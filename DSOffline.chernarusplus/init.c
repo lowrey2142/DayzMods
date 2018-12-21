@@ -1,4 +1,5 @@
 #include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Configs\\ServerCfg.c"
+#include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Messages\\ServerMessages.c"
 
 Mission CreateCustomMission(string path)
 {
