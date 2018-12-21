@@ -8,7 +8,7 @@ class DefaultPlayerSetup
 		TStringArray pants = {"Jeans_Black","Jeans_BlueDark","Jeans_Blue","Jeans_Brown","Jeans_Green","Jeans_Grey"};
 		TStringArray bags = {"courierbag"};
 		TStringArray shoes = {"AthleticShoes_Black","AthleticShoes_Blue","AthleticShoes_Brown","AthleticShoes_Green","AthleticShoes_Grey","HikingBootsLow_Beige","HikingBootsLow_Black","HikingBootsLow_Blue","HikingBootsLow_Grey","HikingBoots_Black","HikingBoots_Brown","HikingJacket_Black"};
-		TStringArray tool = {"OrienteeringCompass","StoneKnife","PurificationTablets","RoadFlare"};
+		TStringArray tool = {"OrienteeringCompass","PurificationTablets","RoadFlare"};
 		TStringArray medic = {"Rags","BandageDressing"};
 		TStringArray drink = {"SodaCan_Cola","SodaCan_Kvass","SodaCan_Pipsi","SodaCan_Spite"};
 		TStringArray food = {"PeachesCan","Apple","PowderedMilk","PeachesCan","Pear"};
@@ -45,7 +45,7 @@ class DefaultPlayerSetup
 		itemEnt = player.GetInventory().CreateInInventory(food.GetRandomElement());
 		itemBs = ItemBase.Cast(itemEnt);
 		
-		itemEnt = player.GetInventory().CreateInInventory("CombatKnife");
+		itemEnt = player.GetInventory().CreateInInventory("StoneKnife");
 		itemBs = ItemBase.Cast(itemEnt);
 		
 		itemEnt = player.GetInventory().CreateInInventory("Flashlight");
@@ -66,11 +66,7 @@ class AdminPlayerSetup
 	
 	void AdminPlayerSetup(PlayerBase m_player)
 	{
-		TStringArray tops = {"Shirt_BlueCheck","Shirt_RedCheck","Shirt_GreenCheck","Shirt_WhiteCheck","Shirt_PlaneBlack","HikingJacket_Blue","HikingJacket_Green","HikingJacket_Red","Sweater_Blue","Sweater_Gray","Sweater_Green","Sweater_Red","TShirt_Beige","TShirt_Black","TShirt_Blue","TShirt_Green","TShirt_Grey","TShirt_OrangeWhiteStripes","TShirt_Red","TShirt_RedBlackStripes","TShirt_White"};
-		TStringArray pants = {"Jeans_Black","Jeans_BlueDark","Jeans_Blue","Jeans_Brown","Jeans_Green","Jeans_Grey"};
-		TStringArray bags = {"courierbag"};
-		TStringArray shoes = {"AthleticShoes_Black","AthleticShoes_Blue","AthleticShoes_Brown","AthleticShoes_Green","AthleticShoes_Grey","HikingBootsLow_Beige","HikingBootsLow_Black","HikingBootsLow_Blue","HikingBootsLow_Grey","HikingBoots_Black","HikingBoots_Brown","HikingJacket_Black"};
-		TStringArray tool = {"OrienteeringCompass","StoneKnife","PurificationTablets","RoadFlare"};
+		TStringArray tool = {"OrienteeringCompass","PurificationTablets","RoadFlare"};
 		TStringArray medic = {"Rags","BandageDressing"};
 		TStringArray drink = {"SodaCan_Cola","SodaCan_Kvass","SodaCan_Pipsi","SodaCan_Spite"};
 		TStringArray food = {"PeachesCan","Apple","PowderedMilk","PeachesCan","Pear"};
@@ -83,16 +79,16 @@ class AdminPlayerSetup
 		EntityAI itemIn;
 		ItemBase itemBs;
 				
-		EntityAI item = player.GetInventory().CreateInInventory(tops.GetRandomElement());
+		EntityAI item = player.GetInventory().CreateInInventory("HuntingJacket_Summer");
 		itemBs = ItemBase.Cast(itemEnt);
 		
-		EntityAI item2 = player.GetInventory().CreateInInventory(pants.GetRandomElement());
+		EntityAI item2 = player.GetInventory().CreateInInventory("HunterPants_Summer");
 		itemBs = ItemBase.Cast(itemEnt);
 		
-		EntityAI item3 = player.GetInventory().CreateInInventory(shoes.GetRandomElement());
+		EntityAI item3 = player.GetInventory().CreateInInventory("HikingBootsLow_Black");
 		itemBs = ItemBase.Cast(itemEnt);
 		
-		EntityAI item4 = player.GetInventory().CreateInInventory(bags.GetRandomElement());
+		EntityAI item4 = player.GetInventory().CreateInInventory("AssaultBag_Green");
 		itemBs = ItemBase.Cast(itemEnt);
 				
 		itemEnt = player.GetInventory().CreateInInventory(tool.GetRandomElement());
@@ -102,6 +98,12 @@ class AdminPlayerSetup
 		itemBs = ItemBase.Cast(itemEnt);
 		
 		itemEnt = player.GetInventory().CreateInInventory(drink.GetRandomElement());
+		itemBs = ItemBase.Cast(itemEnt);
+		
+		itemEnt = player.GetInventory().CreateInInventory(drink.GetRandomElement());
+		itemBs = ItemBase.Cast(itemEnt);
+		
+		itemEnt = player.GetInventory().CreateInInventory(food.GetRandomElement());
 		itemBs = ItemBase.Cast(itemEnt);
 		
 		itemEnt = player.GetInventory().CreateInInventory(food.GetRandomElement());
@@ -118,7 +120,6 @@ class AdminPlayerSetup
 		
 		itemEnt = player.GetInventory().CreateInInventory("PeachesCan");
 		itemBs = ItemBase.Cast(itemEnt);
-		itemBs.SetQuantity(4);		
 	}
 }
 	
@@ -133,7 +134,7 @@ class VIPPlayerSetup
 		TStringArray pants = {"Jeans_Black","Jeans_BlueDark","Jeans_Blue","Jeans_Brown","Jeans_Green","Jeans_Grey"};
 		TStringArray bags = {"courierbag"};
 		TStringArray shoes = {"AthleticShoes_Black","AthleticShoes_Blue","AthleticShoes_Brown","AthleticShoes_Green","AthleticShoes_Grey","HikingBootsLow_Beige","HikingBootsLow_Black","HikingBootsLow_Blue","HikingBootsLow_Grey","HikingBoots_Black","HikingBoots_Brown","HikingJacket_Black"};
-		TStringArray tool = {"OrienteeringCompass","StoneKnife","PurificationTablets","RoadFlare"};
+		TStringArray tool = {"OrienteeringCompass","PurificationTablets","RoadFlare"};
 		TStringArray medic = {"Rags","BandageDressing"};
 		TStringArray drink = {"SodaCan_Cola","SodaCan_Kvass","SodaCan_Pipsi","SodaCan_Spite"};
 		TStringArray food = {"PeachesCan","Apple","PowderedMilk","PeachesCan","Pear"};
@@ -170,7 +171,7 @@ class VIPPlayerSetup
 		itemEnt = player.GetInventory().CreateInInventory(food.GetRandomElement());
 		itemBs = ItemBase.Cast(itemEnt);
 		
-		itemEnt = player.GetInventory().CreateInInventory("CombatKnife");
+		itemEnt = player.GetInventory().CreateInInventory("StoneKnife");
 		itemBs = ItemBase.Cast(itemEnt);
 		
 		itemEnt = player.GetInventory().CreateInInventory("Flashlight");
@@ -184,7 +185,7 @@ class VIPPlayerSetup
 		
 	}
 }
-//VIP Loadout
+//Member Loadout
 
 class MemberPlayerSetup
 {
@@ -196,7 +197,7 @@ class MemberPlayerSetup
 		TStringArray pants = {"Jeans_Black","Jeans_BlueDark","Jeans_Blue","Jeans_Brown","Jeans_Green","Jeans_Grey"};
 		TStringArray bags = {"courierbag"};
 		TStringArray shoes = {"AthleticShoes_Black","AthleticShoes_Blue","AthleticShoes_Brown","AthleticShoes_Green","AthleticShoes_Grey","HikingBootsLow_Beige","HikingBootsLow_Black","HikingBootsLow_Blue","HikingBootsLow_Grey","HikingBoots_Black","HikingBoots_Brown","HikingJacket_Black"};
-		TStringArray tool = {"OrienteeringCompass","StoneKnife","PurificationTablets","RoadFlare"};
+		TStringArray tool = {"OrienteeringCompass","PurificationTablets","RoadFlare"};
 		TStringArray medic = {"Rags","BandageDressing"};
 		TStringArray drink = {"SodaCan_Cola","SodaCan_Kvass","SodaCan_Pipsi","SodaCan_Spite"};
 		TStringArray food = {"PeachesCan","Apple","PowderedMilk","PeachesCan","Pear"};
@@ -233,7 +234,7 @@ class MemberPlayerSetup
 		itemEnt = player.GetInventory().CreateInInventory(food.GetRandomElement());
 		itemBs = ItemBase.Cast(itemEnt);
 		
-		itemEnt = player.GetInventory().CreateInInventory("CombatKnife");
+		itemEnt = player.GetInventory().CreateInInventory("StoneKnife");
 		itemBs = ItemBase.Cast(itemEnt);
 		
 		itemEnt = player.GetInventory().CreateInInventory("Flashlight");

@@ -26,7 +26,7 @@ class DSCommunity : MissionServer
 	protected ref map<string, string> m_CommVIPList;
 	protected ref map<string, string> m_CommMemberList;
 	
-	protected PlayerBase Admin;
+	//protected PlayerBase Admin;
 	protected PlayerIdentity identityT;
 	protected string PlayerUID;
 	protected string GUID;
@@ -35,7 +35,7 @@ class DSCommunity : MissionServer
 		
 	void DSCommunity()
 	{
-		Print("VANILLA PLUS PLUS IS ALIVE!!");
+		Print("[DS]: DSCommunity has initiated...");
 	}
 	
 	void ~DSCommunity()
@@ -47,7 +47,7 @@ class DSCommunity : MissionServer
 	{
 		super.OnInit();
 		
-		Print("Loading DSCommunity Mods...");
+		Print("[DS]: Loading DSCommunity Mods...");
 		
 		m_CommAdminList    = new map<string, string>; //UID, name
 		m_CommVIPList    = new map<string, string>; //UID, name
@@ -105,6 +105,8 @@ class DSCommunity : MissionServer
 		
 		Print("[DS]: msg setup completed...");
 		//-----End Setup Server Messaging system-----
+		
+		Print("[DS]: DSCommunity Mods loaded");
 	}
 
 		override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
@@ -165,34 +167,35 @@ class DSCommunity : MissionServer
 	override void StartingEquipSetup(PlayerBase player, bool clothesChosen)
 	{
 		
-		//Geting plaer ID
+		//Geting player ID
 		PlayerUID = player.GetIdentity().GetPlainId();
 		
 		
 		//Community Admin Starting Equip
 		if (m_CommAdminList.Contains( PlayerUID ))
 		{
-			Print("Player: "+ PlayerUID + " is a Community admin, granting admin Starting Equip.");
+			Print("[DS]: Player: "+ PlayerUID + " is a Community admin, granting admin Starting Equip.");
 			AdminPlayerSetup adminobj = new AdminPlayerSetup(player);
 		}
 		
 		//Community VIP Starting Equip
 		else if (m_CommVIPList.Contains( PlayerUID ))
 		{
-			Print("Player: "+ PlayerUID + " is a Community VIP, granting VIP Starting Equip.");
+			Print("[DS]: Player: "+ PlayerUID + " is a Community VIP, granting VIP Starting Equip.");
 			VIPPlayerSetup vipobj = new VIPPlayerSetup(player);
 		}
 		
 		//Community Member Starting Equip
 		else if (m_CommMemberList.Contains( PlayerUID ))
 		{
-			Print("Player: "+ PlayerUID + " is a Community member, granting member Starting Equip.");
+			Print("[DS]: Player: "+ PlayerUID + " is a Community member, granting member Starting Equip.");
 			MemberPlayerSetup memberobj = new MemberPlayerSetup(player);
 		}
 		
 		//Default player Starting Equip
 		else 
 		{
+			Print("[DS]: Player: "+ PlayerUID + " is not a member selecting default loadout");
 			DefaultPlayerSetup defaultobj = new DefaultPlayerSetup(player);
 		}
 		
