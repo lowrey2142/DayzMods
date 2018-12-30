@@ -17,6 +17,7 @@
 	This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 */
 
+//[DS]: Loads custom loadouts
 #include "$CurrentDir:\\mpmissions\\DSOffline.chernarusplus\\DS\\Community\\loadouts.c"
 
 class DSCommunity : MissionServer
@@ -109,7 +110,7 @@ class DSCommunity : MissionServer
 		Print("[DS]: DSCommunity Mods loaded");
 	}
 
-		override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
+	override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
 	{
 		if (GetHive())
 		{
@@ -150,6 +151,8 @@ class DSCommunity : MissionServer
 
 			currentPlayer.GetStaminaHandler().SyncStamina(1000,1000);
             currentPlayer.GetStatStamina().Set(currentPlayer.GetStaminaHandler().GetStaminaCap());
+			
+			m_currentPlayer++;
 		}
 	}
 	

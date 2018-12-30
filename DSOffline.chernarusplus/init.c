@@ -18,6 +18,7 @@ void main()
     weather.GetFog().Set( Math.RandomFloatInclusive(0.05, 0.1), 1, 0);
 
 	//INIT ECONOMY--------------------------------------
+	
 	Hive ce = CreateHive();
 	if ( ce )
 		ce.InitOffline();
